@@ -1,0 +1,11 @@
+speed_ship:
+  loginId: loginId
+  password: password
+  licenseKey: licenseKey
+  accountNumber: accountNumber
+speed_freight:
+  loginId: loginId
+  password: password
+  licenseKey: licenseKey
+  accountNumber: accountNumber
+
