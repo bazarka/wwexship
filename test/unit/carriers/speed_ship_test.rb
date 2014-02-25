@@ -42,7 +42,7 @@ class SpeedShipTest < Test::Unit::TestCase
                   "3 Day Select"
                  ], name
 
-    assert_equal ["388.43" , "194.03", "180.46", "182.76", "154.65", "146.24" ], price
+    assert_equal ["388.43", "194.03", "180.46", "182.76", "154.65", "146.24"], price
     assert_equal ["1DM", "1DA", "1DP", "2DM", "2DA", "3DS"], code
     assert_equal ["2042447-14",
                   "2042447-01",
@@ -65,9 +65,9 @@ class SpeedShipTest < Test::Unit::TestCase
     mock_response = xml_fixture('speed_ship/book_shipment_response')
     @carrier.expects(:commit).returns(mock_response)
     option= {:bill_to_country_code => 'us', :ups_account_number => 'E5A138', :billing_shipping_charge_to_option => 'Paid By Sender'}
-    book_response = @carrier.book_shipment(@locations[:beverly_hills], @locations[:beverly_hills], find_rates_response.rates.first, option,   @packages.values_at(:just_grams))
+    book_response = @carrier.book_shipment(@locations[:beverly_hills], @locations[:beverly_hills], find_rates_response.rates.first, option, @packages.values_at(:just_grams))
 
-    book_response.each do |k ,v|
+    book_response.each do |k, v|
 
       assert_equal "1ZE5A1381591431893", k[:air_bill_number]
     end
