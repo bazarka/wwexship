@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 module ActiveMerchant
   module Shipping
     class SpeedShip < Carrier
