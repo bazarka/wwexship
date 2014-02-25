@@ -38,7 +38,7 @@ class SpeedFreightTest < Test::Unit::TestCase
     response = begin
       @carrier.find_rates(@locations[:real_home_as_residential],
                           @locations[:real_home_as_residential],
-                          @packages[ :big_half_pound ])
+                          @packages[:big_half_pound])
     rescue ResponseError => e
       assert_equal "Type of handling unit for Handling Unit #1 is required", e.message
     end

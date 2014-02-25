@@ -35,17 +35,16 @@ class SpeedShipTest < Test::Unit::TestCase
   def test_response_parsing
     options = {:shipment_type => 'For multi piece/package and single piece/package shipments'}
     assert_nothing_raised do
-    find_rates_response = @carrier.find_rates(@locations[:real_home_as_commercial],
-                                    @locations[:real_home_as_commercial],
-                                    @packages[:just_grams], options)
+      find_rates_response = @carrier.find_rates(@locations[:real_home_as_commercial],
+                                                @locations[:real_home_as_commercial],
+                                                @packages[:just_grams], options)
 
-    assert !find_rates_response.rates.blank?
-     find_rates_response.rates.each do |rate|
+      assert !find_rates_response.rates.blank?
+      find_rates_response.rates.each do |rate|
         assert_instance_of String, rate.service_name[:service_name]
-     end
-   end
+      end
+    end
   end
-
 
 
   def test_book_shipment_remote
@@ -54,7 +53,7 @@ class SpeedShipTest < Test::Unit::TestCase
                                               @locations[:real_home_as_commercial],
                                               @packages[:just_grams], options)
     option= {:bill_to_country_code => 'us', :ups_account_number => 'E5A138', :billing_shipping_charge_to_options => 'Paid By Sender'}
-    book_response = @carrier.book_shipment(@locations[:beverly_hills], @locations[:beverly_hills], find_rates_response.rates.first, option,   @packages.values_at(:just_grams))
+    book_response = @carrier.book_shipment(@locations[:beverly_hills], @locations[:beverly_hills], find_rates_response.rates.first, option, @packages.values_at(:just_grams))
   end
 
   def test_void_shipment_remote
@@ -63,7 +62,7 @@ class SpeedShipTest < Test::Unit::TestCase
                                               @locations[:real_home_as_commercial],
                                               @packages[:just_grams], options)
     option= {:bill_to_country_code => 'us', :ups_account_number => 'E5A138', :billing_shipping_charge_to_options => 'Paid By Sender'}
-    book_response = @carrier.book_shipment(@locations[:real_home_as_residential], @locations[:real_home_as_residential], find_rates_response.rates.first, option,   @packages.values_at(:just_grams))
+    book_response = @carrier.book_shipment(@locations[:real_home_as_residential], @locations[:real_home_as_residential], find_rates_response.rates.first, option, @packages.values_at(:just_grams))
     nr = []
     book_response.each do |k, book|
       nr << k[:air_bill_number]

@@ -94,7 +94,7 @@ module ActiveMerchant
         end
         build_access_request(header)
         create_body_book_request(origin, destination, rates_response, body, options)
-        response = commit(:rates, save_request(main.to_s),  (options[:test] || false))
+        response = commit(:rates, save_request(main.to_s), (options[:test] || false))
         parse_book_response(response)
       end
 
@@ -111,7 +111,7 @@ module ActiveMerchant
         packages = Array(packages)
         create_body_request(origin, destination, packages, options, body)
         build_access_request(header)
-        response = commit(:rates, save_request(main.to_s),  (options[:test] || false))
+        response = commit(:rates, save_request(main.to_s), (options[:test] || false))
         parse_rate_response(origin, destination, packages, response, options)
       end
 

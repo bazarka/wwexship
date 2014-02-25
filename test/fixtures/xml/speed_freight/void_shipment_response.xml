@@ -1,1 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><voidSpeedFreightShipmentResponse xmlns="http://www.wwexship.com"><voidSpeedFreightShipmentReturn><responseStatusCode>1</responseStatusCode><responseStatusDescription>Success</responseStatusDescription><errorDescriptions xsi:nil="true"/><freightShipmentVoidResults><freightShipmentVoidResult><bolNumber>42695609</bolNumber><description>true</description></freightShipmentVoidResult><freightShipmentVoidResult><bolNumber>42695618</bolNumber><description>true</description></freightShipmentVoidResult></freightShipmentVoidResults></voidSpeedFreightShipmentReturn></voidSpeedFreightShipmentResponse></soapenv:Body></soapenv:Envelope>
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <soapenv:Body>
+    <voidSpeedFreightShipmentResponse xmlns="http://www.wwexship.com">
+      <voidSpeedFreightShipmentReturn>
+        <responseStatusCode>1</responseStatusCode>
+        <responseStatusDescription>Success</responseStatusDescription>
+        <errorDescriptions xsi:nil="true"/>
+        <freightShipmentVoidResults>
+          <freightShipmentVoidResult>
+            <bolNumber>42695609</bolNumber>
+            <description>true</description>
+          </freightShipmentVoidResult>
+          <freightShipmentVoidResult>
+            <bolNumber>42695618</bolNumber>
+            <description>true</description>
+          </freightShipmentVoidResult>
+        </freightShipmentVoidResults>
+      </voidSpeedFreightShipmentReturn>
+    </voidSpeedFreightShipmentResponse>
+  </soapenv:Body>
+</soapenv:Envelope>
