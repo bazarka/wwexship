@@ -1,2 +1,5 @@
-require 'active_shipping/shipping/carriers/speed_freight'
-require 'active_shipping/shipping/carriers/speed_ship'
+require 'wwexship/active_shipping/shipping/location'
+require 'wwexship/active_shipping/shipping/carriers/speed_freight'
+require 'wwexship/active_shipping/shipping/carriers/speed_ship'
+
+
