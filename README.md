@@ -1,12 +1,14 @@
-# WWEXSHIP
+# WWEXSHIP - Worldwide Express carrier
 
 
 This library extends Active Shipping and adds support for Worldwide Express carrier. This carrier provides two services Speed Freight and Speed Ship that this library implements.
 
-Comparing to the Active Shipping the library adds additionally to find rates and track packages also a possibility to book and void shipments. Because of that the requests are more complex
+Comparing to the Active Shipping the library adds additionally to find rates and track packages also a possibility to book and void shipments. Because of that the requests are more complex.
+
+To understand all options available please have a look in the documentation provided by the carrier.
 
 
-## Supported Shipping Carriers
+## Supported Shipping Carrier
 
 * [Worldwide Express](http://wwex.com/)
 
@@ -16,18 +18,22 @@ Comparing to the Active Shipping the library adds additionally to find rates and
 
 ## Sample Usage
 
-### Compare rates from the carrier
+### Speed Freight service
 
     require 'active_shipping'
     require 'wwexship'
 
-    # Package up a poster and a Wii for your nephew.
+    # Initialize Speed Freight
+
+    speed_freight  = ActiveMerchant::Shipping::SpeedFreight.new(loginId: 'login', password: 'secret', licenseKey: 'your license', accountNumber: 'your account #')
+
+    # Create a new package. In case of this service package is meant to be a container containing packages (here lines) inside.
     packages = [
         ActiveMerchant::Shipping::Package.new(   100,
                                                 [93, 10],
                                                 cylinder: true,
                                                 'units' => 'Pallet',
-                                                'number' => 2 ,
+                                                'number' => 2 ,  [number of packages (lines) inside]
                                                 'lines' => {'line1' =>
                                                                 {:class_type => 50,
                                                                 :weight => 4,
@@ -52,7 +58,55 @@ Comparing to the Active Shipping the library adds additionally to find rates and
                                                             phone: '1-310-285-1013',
                                                             company: 'WebWizard')
 
-    destination = ActiveMerchant::Shipping::Location.new(   country: 'US',
+    destination = ActiveMerchant::Shipping::Location.new(   :country => 'US',
+                                                            :city => 'New York',
+                                                            :state => 'NY',
+                                                            :company => 'micro',
+                                                            :phone => '1-613-580-2400',
+                                                            :address1 => '780 3rd Avenue',
+                                                            :address2 => 'Suite  2601',
+                                                            :zip => '10017')
+
+
+    # Find out how much it'll be.
+    response = speed_freight.find_rates(origin, destination, packages, {})
+
+    # Get the rates from the carrier
+    rates_response =  response.rates
+
+    # Book Shipment
+    shipment = speed_freight.book_shipment(origin, destination, rates_response[selected rate from array], {:shipment_date => '03/22/2014', :shipment_ready_time => '08:00 am', :shipment_closing_time => '09:00 pm'}, packages)
+
+    # Get the shipment confirmation from an array
+    confirmation = shipment[0]
+
+    # Void Shipment
+    void = speed_freight.void_shipment([confirmation[:number]])
+
+    # Get PRO number
+    pro = speed_freight.pro_number([confirmation[:number]])
+
+
+### Speed Ship service
+
+    require 'active_shipping'
+    require 'wwexship'
+
+    # initialize speed ship
+
+    speed_ship  = ActiveMerchant::Shipping::SpeedShip.new(loginId: 'login', password: 'secret', licenseKey: 'your license', accountNumber: 'your account #')
+
+    # Create a new package. In case of this service package is meant to be a container containing packages (here lines) inside.
+    packages = [
+        ActiveMerchant::Shipping::Package.new(   100,
+                                                [93, 10],
+                                                cylinder: true,
+                                                package_number: '1',
+                                                package_type: 'UPS Letter')
+    ]
+
+
+    origin = ActiveMerchant::Shipping::Location.new(        country: 'US',
                                                             state: 'CA',
                                                             city: 'Beverly Hills',
                                                             zip: '90210', address1:
@@ -61,24 +115,32 @@ Comparing to the Active Shipping the library adds additionally to find rates and
                                                             phone: '1-310-285-1013',
                                                             company: 'WebWizard')
 
+    destination = ActiveMerchant::Shipping::Location.new(   country: 'US',
+                                                            city: 'New York',
+                                                            state: 'NY',
+                                                            company: 'micro',
+                                                            phone: '1-613-580-2400',
+                                                            address1: '780 3rd Avenue',
+                                                            address2: 'Suite  2601',
+                                                            zip: '10017')
+
 
     # Find out how much it'll be.
-    w = ActiveMerchant::Shipping::SpeedFreight.new(loginId: 'login', password: 'secret', licenseKey: 'your license', accountNumber: 'your account #')
-    response = w.find_rates(origin, destination, packages, {dupa: 'dupa'})
+    response = speed_ship.find_rates(origin, destination, packages, {})
+
+    # Get the rates from the carrier
+    rates_response =  response.rates
+
+    # Book Shipment
+    shipments = speed_ship.book_shipment(origin, destination, rates_response[selected rate from array], {:bill_to_country_code => 'us', :ups_account_number => 'E5A138', :billing_shipping_charge_to_options => 'Paid By Sender'}, packages)
+
+    # Get the shipment confirmation from an array
+    shipment_confirmation = shipments[0]
+
+    # Void Shipment
+    void = speed_ship.void_shipment([shipment_confirmation[:air_bill_number]])
 
 
-    options = {:shipment_date => '03/22/2014', :shipment_ready_time => '08:00 am', :shipment_closing_time => '09:00 pm'}
-    rates_response =  response.rates.first
-    table = []
-
-    book = w.book_shipment(origin, destination , rates_response, options, packages)
-    book1 = w.book_shipment(origin, destination , rates_response, options, packages)
-
-
-    table << book[0][:number]
-    table << book1[0][:number]
-    #void = w.void_shipment(table)
-    pro = w.pro_number(table)
 
 
 ## Running the tests
@@ -92,4 +154,4 @@ After installing dependencies with `bundle install`, you can run the unit tests 
 
 ## Legal Notice
 
-Unless otherwise noted in specific files, all code in the Active Shipping project is under the copyright and license described in the included MIT-LICENSE file.
+Unless otherwise noted in specific files, all code in the WWEXSHIP project is under the copyright and license described in the included MIT-LICENSE file.

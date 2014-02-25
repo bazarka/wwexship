@@ -123,14 +123,14 @@ module ActiveMerchant
                                       'fax' => '1-310-275-8159'),
 
         :beverly_hills_2 => Location.new(
-            'country_code' => 'US',
-            'state' => 'CA',
-            'city' => 'Beverly Hills',
-            'address1' => '455 N. Rexford Dr.',
-            'address2' => '3rd Floor',
-            'zip' => '90210',
-            'phone' => '1-310-285-1013',
-            'fax' => '1-310-275-8159'),
+                                      'country_code' => 'US',
+                                      'state' => 'CA',
+                                      'city' => 'Beverly Hills',
+                                      'address1' => '455 N. Rexford Dr.',
+                                      'address2' => '3rd Floor',
+                                      'zip' => '90210',
+                                      'phone' => '1-310-285-1013',
+                                      'fax' => '1-310-275-8159'),
         :real_home_as_commercial => Location.new(
                                       :country => 'US',
                                       :city => 'Tampa',
