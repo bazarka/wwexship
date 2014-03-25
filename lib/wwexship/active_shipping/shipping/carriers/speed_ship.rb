@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 module ActiveMerchant
   module Shipping
     class SpeedShip < Carrier
@@ -573,7 +574,11 @@ module ActiveMerchant
           service_options << XmlNode.new('xsd2:handlingChargeIndicator', options[:handling_charge_indicator])
           service_options << XmlNode.new('xsd2:returnLabelIndicator', options[:return_label_indicator])
           service_options << XmlNode.new('xsd2:schedulePickupIndicator', options[:schedule_pickup_indicator])
-          service_options << XmlNode.new('xsd2:shipmentType', options[:shipment_type])
+          if options[:shipment_type].present?
+            service_options << XmlNode.new('xsd2:shipmentType', options[:shipment_type])
+          else
+            service_options << XmlNode.new('xsd2:shipmentType', "R")
+          end
         end
 
       end
@@ -680,7 +685,9 @@ module ActiveMerchant
         service_options << XmlNode.new('xsd1:returnLabelIndicator', options[:return_label_indicator])
         service_options << XmlNode.new('xsd1:schedulePickupIndicator', options[:scheduled_delivery_indicator])
         if options[:shipment_type].present?
-          service_options << XmlNode.new('xsd1:shipmentType', SHIPMENT_TYPE[options[:shipment_type]])
+          service_options << XmlNode.new('xsd1:shipmentType', options[:shipment_type])
+        else
+          service_options << XmlNode.new('xsd1:shipmentType', "R")
         end
       end
 

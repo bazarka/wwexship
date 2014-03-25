@@ -33,7 +33,7 @@ class SpeedShipTest < Test::Unit::TestCase
 
 
   def test_response_parsing
-    options = {:shipment_type => 'For multi piece/package and single piece/package shipments'}
+    options = {:shipment_type => 'R'}
     assert_nothing_raised do
       find_rates_response = @carrier.find_rates(@locations[:real_home_as_commercial],
                                                 @locations[:real_home_as_commercial],
@@ -48,7 +48,7 @@ class SpeedShipTest < Test::Unit::TestCase
 
 
   def test_book_shipment_remote
-    options = {:shipment_type => 'For multi piece/package and single piece/package shipments'}
+    options = {}
     find_rates_response = @carrier.find_rates(@locations[:real_home_as_commercial],
                                               @locations[:real_home_as_commercial],
                                               @packages[:just_grams], options)
@@ -57,7 +57,7 @@ class SpeedShipTest < Test::Unit::TestCase
   end
 
   def test_void_shipment_remote
-    options = {:shipment_type => 'For multi piece/package and single piece/package shipments'}
+    options = {:shipment_type => 'R'}
     find_rates_response = @carrier.find_rates(@locations[:real_home_as_commercial],
                                               @locations[:real_home_as_commercial],
                                               @packages[:just_grams], options)
