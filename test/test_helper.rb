@@ -35,9 +35,9 @@ module MiniTest
       end
 
       def load_fixtures
-        file = DEFAULT_CREDENTIALS
+        file =  DEFAULT_CREDENTIALS
         yaml_data = YAML.load(File.read(file))
-        model_fixtures = Dir.glob(File.join(MODEL_FIXTURES, '**', '*.yml'))
+        model_fixtures = Dir.glob(File.join(MODEL_FIXTURES,'**','*.yml'))
         model_fixtures.each do |file|
           name = File.basename(file, '.yml')
           yaml_data[name] = YAML.load(File.read(file))
@@ -49,18 +49,18 @@ module MiniTest
       end
 
       def xml_fixture(path) # where path is like 'usps/beverly_hills_to_ottawa_response'
-        open(File.join(File.dirname(__FILE__), 'fixtures', 'xml', "#{path}.xml")) { |f| f.read }
+        open(File.join(File.dirname(__FILE__),'fixtures','xml',"#{path}.xml")) {|f| f.read}
       end
 
       def json_fixture(path) # where path is like 'usps/beverly_hills_to_ottawa_response'
-        open(File.join(File.dirname(__FILE__), 'fixtures', 'json', "#{path}.json")) { |f| f.read }
+        open(File.join(File.dirname(__FILE__),'fixtures','json',"#{path}.json")) {|f| f.read}
       end
 
       def symbolize_keys(hash)
         return unless hash.is_a?(Hash)
 
         hash.symbolize_keys!
-        hash.each { |k, v| symbolize_keys(v) }
+        hash.each{|k,v| symbolize_keys(v)}
       end
 
       def file_fixture(filename)
@@ -72,8 +72,7 @@ end
 
 module Test
   module Unit
-    class TestCase < MiniTest::Unit::TestCase;
-    end
+    class TestCase < MiniTest::Unit::TestCase; end
   end
 end
 
@@ -114,120 +113,120 @@ module ActiveMerchant
                                   'phone' => '1-613-580-2400',
                                   'fax' => '1-613-580-2495'),
           :beverly_hills => Location.new(
-              'country_code' => 'US',
-              'state' => 'CA',
-              'city' => 'Beverly Hills',
-              'address1' => '455 N. Rexford Dr.',
-              'address2' => '3rd Floor',
-              'zip' => '90210',
-              'phone' => '1-310-285-1013',
-              'fax' => '1-310-275-8159'),
+                                  'country_code' => 'US',
+                                  'state' => 'CA',
+                                  'city' => 'Beverly Hills',
+                                  'address1' => '455 N. Rexford Dr.',
+                                  'address2' => '3rd Floor',
+                                  'zip' => '90210',
+                                  'phone' => '1-310-285-1013',
+                                  'fax' => '1-310-275-8159'),
 
-          :beverly_hills_2 => Location.new(
-              'country_code' => 'US',
-              'state' => 'CA',
-              'city' => 'Beverly Hills',
-              'address1' => '455 N. Rexford Dr.',
-              'address2' => '3rd Floor',
-              'zip' => '90210',
-              'phone' => '1-310-285-1013',
-              'fax' => '1-310-275-8159'),
-          :real_home_as_commercial => Location.new(
-              :country => 'US',
-              :city => 'Tampa',
-              :state => 'FL',
-              :company => 'Tampa Company',
-              :address1 => '7926 Woodvale Circle',
-              :zip => '33615',
-              :address_type => 'commercial'), # means that UPS will default to commercial if it doesn't know
-          :fake_home_as_commercial => Location.new(
-              :country => 'US',
-              :state => 'FL',
-              :address1 => '123 fake st.',
-              :zip => '33615',
-              :address_type => 'commercial'),
-          :real_google_as_commercial => Location.new(
-              :country => 'US',
-              :city => 'Mountain View',
-              :state => 'CA',
-              :address1 => '1600 Amphitheatre Parkway',
-              :zip => '94043',
-              :address_type => 'commercial'),
-          :real_google_as_residential => Location.new(
-              :country => 'US',
-              :company => "Micro",
-              :city => 'Mountain View',
-              :state => 'CA',
-              :address1 => '1600 Amphitheatre Parkway',
-              :zip => '94043',
-              :address_type => 'residential'), # means that will default to residential if it doesn't know
-          :fake_google_as_commercial => Location.new(
-              :country => 'US',
-              :city => 'Mountain View',
-              :state => 'CA',
-              :address1 => '123 bogusland dr.',
-              :zip => '94043',
-              :address_type => 'commercial'),
-          :fake_google_as_residential => Location.new(
-              :country => 'US',
-              :city => 'Mountain View',
-              :state => 'CA',
-              :address1 => '123 bogusland dr.',
-              :zip => '94043',
-              :address_type => 'residential'), # means that will default to residential if it doesn't know
-          :fake_home_as_residential => Location.new(
-              :country => 'US',
-              :state => 'FL',
-              :company => "Company",
-              :address1 => '123 fake st.',
-              :zip => '33615',
-              :address_type => 'residential'),
-          :real_home_as_residential => Location.new(
-              :company => "Sony",
-              :phone => "1-310-285-1013",
-              :name => 'my',
-              :country => 'US',
-              :city => 'Tampa',
-              :state => 'FL',
-              :address1 => '7926 Woodvale Circle',
-              :zip => '33615',
-              :address_type => 'residential'),
-          :london => Location.new(
-              :country => 'GB',
-              :city => 'London',
-              :address1 => '170 Westminster Bridge Rd.',
-              :zip => 'SE1 7RW'),
-          :new_york => Location.new(
-              :country => 'US',
-              :city => 'New York',
-              :state => 'NY',
-              :address1 => '780 3rd Avenue',
-              :address2 => 'Suite  2601',
-              :zip => '10017'),
-          :new_york_with_name => Location.new(
-              :name => "Bob Bobsen",
-              :country => 'US',
-              :city => 'New York',
-              :state => 'NY',
-              :address1 => '780 3rd Avenue',
-              :address2 => 'Suite  2601',
-              :zip => '10017'),
-          :wellington => Location.new(
-              :country => 'NZ',
-              :city => 'Wellington',
-              :address1 => '85 Victoria St',
-              :address2 => 'Te Aro',
-              :postal_code => '6011'),
-          :auckland => Location.new(
-              :country => 'NZ',
-              :city => 'Auckland',
-              :address1 => '192 Victoria St West',
-              :postal_code => '1010'),
-          :puerto_rico => Location.new(
-              :country => 'PR',
-              :city => 'Barceloneta',
-              :address1 => '1 Nueva St',
-              :postal_code => '00617'),
+        :beverly_hills_2 => Location.new(
+                                  'country_code' => 'US',
+                                  'state' => 'CA',
+                                  'city' => 'Beverly Hills',
+                                  'address1' => '455 N. Rexford Dr.',
+                                  'address2' => '3rd Floor',
+                                  'zip' => '90210',
+                                  'phone' => '1-310-285-1013',
+                                  'fax' => '1-310-275-8159'),
+        :real_home_as_commercial => Location.new(
+                                      :country => 'US',
+                                      :city => 'Tampa',
+                                      :state => 'FL',
+                                      :company => 'Tampa Company',
+                                      :address1 => '7926 Woodvale Circle',
+                                      :zip => '33615',
+                                      :address_type => 'commercial'), # means that UPS will default to commercial if it doesn't know
+        :fake_home_as_commercial => Location.new(
+                                      :country => 'US',
+                                      :state => 'FL',
+                                      :address1 => '123 fake st.',
+                                      :zip => '33615',
+                                      :address_type => 'commercial'),
+        :real_google_as_commercial => Location.new(
+                                      :country => 'US',
+                                      :city => 'Mountain View',
+                                      :state => 'CA',
+                                      :address1 => '1600 Amphitheatre Parkway',
+                                      :zip => '94043',
+                                      :address_type => 'commercial'),
+        :real_google_as_residential => Location.new(
+                                      :country => 'US',
+                                      :company => "Micro",
+                                      :city => 'Mountain View',
+                                      :state => 'CA',
+                                      :address1 => '1600 Amphitheatre Parkway',
+                                      :zip => '94043',
+                                      :address_type => 'residential'), # means that will default to residential if it doesn't know
+        :fake_google_as_commercial => Location.new(
+                                      :country => 'US',
+                                      :city => 'Mountain View',
+                                      :state => 'CA',
+                                      :address1 => '123 bogusland dr.',
+                                      :zip => '94043',
+                                      :address_type => 'commercial'),
+        :fake_google_as_residential => Location.new(
+                                      :country => 'US',
+                                      :city => 'Mountain View',
+                                      :state => 'CA',
+                                      :address1 => '123 bogusland dr.',
+                                      :zip => '94043',
+                                      :address_type => 'residential'), # means that will default to residential if it doesn't know
+        :fake_home_as_residential => Location.new(
+                                      :country => 'US',
+                                      :state => 'FL',
+                                      :company => "Company",
+                                      :address1 => '123 fake st.',
+                                      :zip => '33615',
+                                      :address_type => 'residential'),
+        :real_home_as_residential => Location.new(
+                                      :company => "Sony",
+                                      :phone => "1-310-285-1013",
+                                      :name => 'my',
+                                      :country => 'US',
+                                      :city => 'Tampa',
+                                      :state => 'FL',
+                                      :address1 => '7926 Woodvale Circle',
+                                      :zip => '33615',
+                                      :address_type => 'residential'),
+        :london => Location.new(
+                                      :country => 'GB',
+                                      :city => 'London',
+                                      :address1 => '170 Westminster Bridge Rd.',
+                                      :zip => 'SE1 7RW'),
+        :new_york => Location.new(
+                                      :country => 'US',
+                                      :city => 'New York',
+                                      :state => 'NY',
+                                      :address1 => '780 3rd Avenue',
+                                      :address2 => 'Suite  2601',
+                                      :zip => '10017'),
+        :new_york_with_name => Location.new(
+                                      :name => "Bob Bobsen",
+                                      :country => 'US',
+                                      :city => 'New York',
+                                      :state => 'NY',
+                                      :address1 => '780 3rd Avenue',
+                                      :address2 => 'Suite  2601',
+                                      :zip => '10017'),
+        :wellington => Location.new(
+                                      :country => 'NZ',
+                                      :city => 'Wellington',
+                                      :address1 => '85 Victoria St',
+                                      :address2 => 'Te Aro',
+                                      :postal_code => '6011'),
+        :auckland => Location.new(
+                                      :country => 'NZ',
+                                      :city => 'Auckland',
+                                      :address1 => '192 Victoria St West',
+                                      :postal_code => '1010'),
+        :puerto_rico => Location.new(
+                                      :country => 'PR',
+                                      :city => 'Barceloneta',
+                                      :address1 => '1 Nueva St',
+                                      :postal_code => '00617'),
       }
 
       @@line_items1 = [
