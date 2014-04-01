@@ -4,10 +4,9 @@ module ActiveMerchant
   module Shipping
     class SpeedShip < Carrier
       self.retry_safe = true
-
       cattr_accessor :default_options
       cattr_reader :name
-      @@name = "SpeedShip"
+      @@name = "Speed Ship"
 
       TEST_URL = "http://app6.wwex.com:8080/s3fWebService/services/SpeedShip2Service"
       LIVE_URL = "http://app6.wwex.com:8080/s3fWebService/services/SpeedShip2Service"
@@ -105,14 +104,16 @@ module ActiveMerchant
       end
 
       def find_rates(origin, destination, packages, options={})
+
         opt = {"SOAPAction" => "urn:getUPSServiceDetails", "Content-Type" => "text/xml"}
         origin, destination = upsified_location(origin), upsified_location(destination)
         options = @options.merge(options)
         packages = Array(packages)
         main = create_xml(origin, destination, packages, options)
+
         response = commit(:rates, save_request(main.to_s), opt)
 
-        parse_rate_response(origin, destination, packages, response, options)
+         return parse_rate_response(origin, destination, packages, response, options)
       end
 
       def find_tracking_info(tracking_numbers, options={})
@@ -249,7 +250,7 @@ module ActiveMerchant
 
       def build_ups_request(origin, destination, response, xml_request, options, packages)
 
-        imperial = ['US', 'LR', 'MM'].include?(origin.country)
+        imperial = options[:unit] || ['US', 'LR', 'MM'].include?(origin.country) if options[:unit].blank?
         xml_request << XmlNode.new('ser:shipUPSShipment') do |ups_shipment|
           ups_shipment << XmlNode.new('ser:shipUPSRequest') do |ups_request|
             build_charges_detail(ups_request, response, options)
@@ -585,7 +586,7 @@ module ActiveMerchant
 
 
       def build_rate_request(origin, destination, packages, xml_request, options)
-        imperial = ['US', 'LR', 'MM'].include?(origin.country)
+        imperial = options[:unit] || ['US', 'LR', 'MM'].include?(origin.country) if options[:unit].blank?
         packages = Array(packages)
 
         xml_request << XmlNode.new('ser:getUPSServiceDetails') do |service_details|
@@ -766,7 +767,8 @@ module ActiveMerchant
           end
         end
 
-        RateResponse.new(success, message, Hash.from_xml(response).values.first, :rates => rate_estimates, :xml => response, :request => last_request)
+        response = RateResponse.new(success, message, Hash.from_xml(response).values.first, :rates => rate_estimates, :xml => response, :request => last_request)
+        return response
       end
 
 
