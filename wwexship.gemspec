@@ -7,7 +7,8 @@ Gem::Specification.new do |s|
   s.description = "Implements SpeedFreight and SpeedShip carriers"
   s.files = ["lib/wwexship/active_shipping/shipping/carriers/speed_freight.rb",
              "lib/wwexship/active_shipping/shipping/carriers/speed_ship.rb",
-             "lib/wwexship.rb", "lib/wwexship/active_shipping/shipping/location.rb"]
+             "lib/wwexship.rb", "lib/wwexship/active_shipping/shipping/location.rb",
+             "lib/wwexship/active_shipping/shipping/carriers.rb"]
   s.require_path = 'lib'
   s.license = "MIT"
   s.email = 'info@bazarka.com'
