@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = "wwexship"
   s.version = "0.0.4"
-  s.author = "Marcin Jabłoński, Jaroslaw Wozniak"
+  s.author = "Marcin Jablonski, Jaroslaw Wozniak"
   s.homepage = "https://github.com/bazarka/wwexship"
   s.summary = "Extension for Active Shipping"
   s.description = "Implements SpeedFreight and SpeedShip carriers"
